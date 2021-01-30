@@ -1,29 +1,29 @@
 SELECT 
-employee_id,first_name,last_name,job_id,manager_id,department_id,LEVEL 
-FROM employees
-CONNECT BY PRiOR employee_id = manager_id
-START WiTH manager_id iS NULL ORDER BY LEVEL;
+EMPLOYEE_ID,FIRST_NAME,LAST_NAME,JOB_ID,MANAGER_ID,DEPARTMENT_ID,LEVEL 
+FROM EMPLOYEES
+CONNECT BY PRIOR EMPLOYEE_ID = MANAGER_ID
+START WITH MANAGER_ID IS NULL ORDER BY LEVEL;
 
 SELECT 
-employee_id,first_name,last_name,job_id,manager_id,department_id
-,(select first_name from employees e where e.employee_id = emp.manager_id)as boss
+EMPLOYEE_ID,FIRST_NAME,LAST_NAME,JOB_ID,MANAGER_ID,DEPARTMENT_ID
+,(select FIRST_NAME from EMPLOYEES e where e.EMPLOYEE_ID = emp.MANAGER_ID)as boss
 FROM 
-employees emp  ORDER BY 1;
+EMPLOYEES emp  ORDER BY 1;
 
 SELECT 
-employee_id,first_name,last_name,job_id,manager_id,department_id,LEVEL ,
-(select first_name from employees e where e.employee_id = emp.manager_id)as boss
-FROM employees emp
-CONNECT BY PRiOR employee_id = manager_id
-START WiTH manager_id iS NULL ORDER BY LEVEL;
+EMPLOYEE_ID,FIRST_NAME,LAST_NAME,JOB_ID,MANAGER_ID,DEPARTMENT_ID,LEVEL ,
+(select FIRST_NAME from EMPLOYEES e where e.EMPLOYEE_ID = emp.MANAGER_ID)as boss
+FROM EMPLOYEES emp
+CONNECT BY PRIOR EMPLOYEE_ID = MANAGER_ID
+START WITH MANAGER_ID IS NULL ORDER BY LEVEL;
 
 
 
 SELECT 
-employee_id,first_name,last_name,job_id,manager_id,department_id,LEVEL ,
-sys_connect_by_path(first_name,'/') as HiER
-FROM employees
-CONNECT BY PRiOR employee_id = manager_id
-START WiTH manager_id iS null ORDER BY LEVEL;
+EMPLOYEE_ID,FIRST_NAME,LAST_NAME,JOB_ID,MANAGER_ID,DEPARTMENT_ID,LEVEL ,
+SYS_CONNECT_BY_PATH(FIRST_NAME,'/') AS HiER
+FROM EMPLOYEES
+CONNECT BY PRIOR EMPLOYEE_ID = MANAGER_ID
+START WITH MANAGER_ID IS NULL ORDER BY LEVEL;
 
 
